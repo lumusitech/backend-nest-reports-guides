@@ -16,7 +16,7 @@ npx prisma generate # update the prisma client with new schemas added
 pnpm start:dev
 ```
 
-**NOTE:** After insert other tables within your DB, run `npx prisma db pull` for add the new schemas to `schema.prisma` file. The, run `npx prisma generate` to update the prisma client with the new schemas added.
+**NOTE:** After inserting new tables in your database, run `npx prisma db pull` to add the new schemas to `schema.prisma`. Then, run `npx prisma generate` to update the Prisma client with the newly added schemas.
 
 ---
 
