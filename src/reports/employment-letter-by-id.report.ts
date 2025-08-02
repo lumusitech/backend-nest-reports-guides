@@ -48,6 +48,7 @@ export const getEmploymentLetterById = (
     employeeWorkSchedule,
     employerCompany,
   } = values;
+
   const docDefinitions: TDocumentDefinitions = {
     styles,
     pageMargins: [40, 60, 40, 60],

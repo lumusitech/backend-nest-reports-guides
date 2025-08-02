@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { BufferOptions } from 'pdfmake/interfaces';
 import {
+  getCountryReport,
   getEmploymentLetter,
   getEmploymentLetterById,
   getHelloWorldReport,
@@ -50,5 +51,14 @@ export class BasicReportsService extends PrismaClient implements OnModuleInit {
 
     const docDefinitions = getEmploymentLetterById({ ...employeeData });
     return this.printerService.createPDF(docDefinitions);
+  }
+
+  async getCountries() {
+    const toDelete = await new Promise((resolve) => resolve(true));
+    console.log({ toDelete });
+
+    const docDefinitions = getCountryReport();
+    const options: BufferOptions = {};
+    return this.printerService.createPDF(docDefinitions, options);
   }
 }
