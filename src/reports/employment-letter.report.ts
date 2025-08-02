@@ -61,13 +61,5 @@ export const getEmploymentLetter = (): TDocumentDefinitions => {
     },
   };
 
-  // `Atentamente,
-  // [Nombre del Empleador]
-  // [Cargo del Empleador]
-  // [Nombre de la Empresa]
-  // [Fecha de Emisión]
-  // 20 de mayo de 2024
-  // Este documento es una constancia de empleo y no representa un compromiso laboral.`
-
   return docDefinitions;
 };
