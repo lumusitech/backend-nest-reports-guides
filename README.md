@@ -38,3 +38,19 @@ Specifically:
 8. Reusable report sections
 
 9. Generating an employment verification letter (constancia laboral)
+
+---
+
+## PDF make config
+
+Add esModuleInterop in true within tsconfig.json
+The `esModuleInterop: true` setting in `tsconfig.json` is a convenience configuration that enhances TypeScript's compatibility with older JavaScript libraries or those using hybrid export patterns (like pdfmake). It ensures that import statements function as expected in most scenarios, providing a more natural and seamless experience when integrating such popular Node.js ecosystem libraries.
+
+```json
+{
+  "compilerOptions": {
+    // ...other config options
+    "esModuleInterop": true
+  }
+}
+```
