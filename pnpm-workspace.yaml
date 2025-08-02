@@ -4,3 +4,4 @@ ignoredBuiltDependencies:
 onlyBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'
+  - git-commit-msg-linter
