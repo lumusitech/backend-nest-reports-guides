@@ -1,4 +1,4 @@
-import type { Content } from 'pdfmake/interfaces';
+import type { Column, Content } from 'pdfmake/interfaces';
 import { DateFormatter } from 'src/helpers';
 
 interface headerOptions {
@@ -15,23 +15,36 @@ const logo: Content = {
   margin: [0, 0, 0, 20],
 };
 
+const date: Column = {
+  text: DateFormatter.getDDMMMMYYYY(new Date()),
+  alignment: 'right',
+  margin: [20, 30],
+  width: 160,
+};
+
 export const headerSection = (options: headerOptions): Content => {
   const { title, subtitle, showDate = true, showLogo = true } = options;
 
-  const headerTitle: Content = title
-    ? { text: title, style: { bold: true, alignment: 'center' } }
-    : '';
-  const headerSubtitle: Content = subtitle ? { text: subtitle, style: {} } : '';
   const headerLogo: Content = showLogo ? logo : '';
-  const headerDate: Content = showDate
-    ? {
-        text: DateFormatter.getDDMMMMYYYY(new Date()),
-        alignment: 'right',
-        margin: [20, 20],
-      }
-    : '';
+  const headerDate: Content = showDate ? date : '';
+  const headerTitle: Content = {
+    stack: [
+      {
+        text: title ? title : '',
+        alignment: 'center',
+        margin: [0, 15, 0, 0],
+        style: { fontSize: 22, bold: true },
+      },
+      {
+        text: subtitle ? subtitle : '',
+        alignment: 'center',
+        margin: [0, 2, 0, 0],
+        style: { fontSize: 16, bold: true },
+      },
+    ],
+  };
 
   return {
-    columns: [headerLogo, headerTitle, headerSubtitle, headerDate],
+    columns: [headerLogo, headerTitle, headerDate],
   };
 };
