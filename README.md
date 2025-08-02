@@ -8,6 +8,8 @@ After clone, run:
 
 ```sh
 pnpm i
+# run the queries with your DB Manager like PgAdmin4 (insert employees, countries, etc.).
+# Just select all content within file, copy, paste in your query runner and then execute for insertion
 # generate .env file with .env.template file as reference
 docker compose -up -d
 npx prisma generate
