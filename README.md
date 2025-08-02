@@ -41,6 +41,24 @@ Specifically:
 
 ---
 
+Second section. Expanding on our report generation guide, this section delves into more advanced techniques for creating robust and dynamic PDF reports using NestJS and pdfMake.
+
+Specifically, we will cover:
+
+1. Reusing components
+
+2. Page numbering in footers
+
+3. Creating and structuring tables
+
+4. Customizing tables
+
+5. Reusable custom styles
+
+6. Integrating multiple tables within a single report
+
+7. Calculating and displaying report totals
+
 ## PDF make config
 
 Add esModuleInterop in true within tsconfig.json
