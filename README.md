@@ -12,9 +12,11 @@ pnpm i
 # Just select all content within file, copy, paste in your query runner and then execute for insertion
 # generate .env file with .env.template file as reference
 docker compose -up -d
-npx prisma generate
+npx prisma generate # update the prisma client with new schemas added
 pnpm start:dev
 ```
+
+**NOTE:** After insert other tables within your DB, run `npx prisma db pull` for add the new schemas to `schema.prisma` file. The, run `npx prisma generate` to update the prisma client with the new schemas added.
 
 ---
 
