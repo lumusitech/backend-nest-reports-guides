@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { countries as Country, PrismaClient } from '@prisma/client';
 import type { BufferOptions } from 'pdfmake/interfaces';
 import {
   getCountryReport,
@@ -54,10 +54,15 @@ export class BasicReportsService extends PrismaClient implements OnModuleInit {
   }
 
   async getCountries() {
-    const toDelete = await new Promise((resolve) => resolve(true));
-    console.log({ toDelete });
+    const countries: Country[] = await this.countries.findMany({
+      where: {
+        local_name: {
+          not: null,
+        },
+      },
+    });
 
-    const docDefinitions = getCountryReport();
+    const docDefinitions = getCountryReport({ countries });
     const options: BufferOptions = {};
     return this.printerService.createPDF(docDefinitions, options);
   }
