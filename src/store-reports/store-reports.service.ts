@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { PrinterService } from 'src/printer/printer.service';
+import { orderByIdContent } from 'src/reports/order-by-id.report';
 
 @Injectable()
 export class StoreReportsService extends PrismaClient implements OnModuleInit {
@@ -13,7 +14,9 @@ export class StoreReportsService extends PrismaClient implements OnModuleInit {
   }
 
   getOrderByIdReport(orderId: string) {
-    const docDefinitions: TDocumentDefinitions = { content: orderId };
+    console.log(orderId);
+
+    const docDefinitions: TDocumentDefinitions = orderByIdContent();
     const options: BufferOptions = {};
     const doc = this.printerService.createPDF(docDefinitions, options);
     return doc;
