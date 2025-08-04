@@ -63,6 +63,24 @@ Specifically, we will cover:
 
 7. Calculating and displaying report totals
 
+---
+
+The primary goal of this section is to build a comprehensive purchase receipt based on a series of master-detail tables. We're going the extra mile to make this detail section as complex and true-to-life as possible.
+
+Specifically, we'll cover:
+
+QR Codes: Implementing and integrating QR codes.
+
+Inner Joins: Handling data relationships using inner joins.
+
+Tables & Styling: Advanced table creation and custom styling.
+
+Structure & Alignment: Mastering document structure and precise content alignment.
+
+Prisma Data Integration: Seamlessly passing data from Prisma to your reports.
+
+---
+
 ## PDF make config
 
 Add esModuleInterop in true within tsconfig.json
