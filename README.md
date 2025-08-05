@@ -65,7 +65,7 @@ Specifically, we will cover:
 
 ---
 
-Third section. we Build a comprehensive purchase receipt based on a series of master-detail tables. We're going the extra mile to make this detail section as complex and true-to-life as possible.
+Third section. We'll Build a comprehensive purchase receipt based on a series of master-detail tables. We're going the extra mile to make this detail section as complex and true-to-life as possible.
 
 Specifically, we'll cover:
 
@@ -78,6 +78,27 @@ Specifically, we'll cover:
 4. Structure & Alignment: Mastering document structure and precise content alignment.
 
 5. Prisma Data Integration: Seamlessly passing data from Prisma to your reports.
+
+---
+
+Fourth section. We'll learn how to generate various charts and embed them into our reports. We'll also work with SVGs, treating them just like any other image.
+
+Specifically, we'll cover:
+
+1. Chart.js: Generating charts using this library.
+
+2. Prisma Count Queries: Efficiently fetching data for our charts with count queries.
+
+3. Chart Types:
+   1. Doughnut charts
+
+   2. Line charts
+
+   3. Bar charts
+
+4. Custom Placement: Positioning charts precisely within the report.
+
+5. Parameterization: Making charts reusable and dynamic with custom parameters.
 
 ---
 
