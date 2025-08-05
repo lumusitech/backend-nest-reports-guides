@@ -27,7 +27,61 @@ const styles: StyleDictionary = {
   },
 };
 
-export const orderByIdContent = (): TDocumentDefinitions => {
+export interface CompleteOrder {
+  order_id: number;
+  customer_id: number;
+  order_date: Date;
+  customers: Customers;
+  order_details: OrderDetail[];
+}
+
+export interface Customers {
+  customer_id: number;
+  customer_name: string;
+  contact_name: string;
+  address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+}
+
+export interface OrderDetail {
+  order_detail_id: number;
+  order_id: number;
+  product_id: number;
+  quantity: number;
+  products: Products;
+}
+
+export interface Products {
+  product_id: number;
+  product_name: string;
+  category_id: number;
+  unit: string;
+  price: string;
+}
+
+interface ReportValues {
+  title?: string;
+  subtitle?: string;
+  data: CompleteOrder;
+}
+
+export const orderByIdDocDefinitions = (
+  values: ReportValues,
+): TDocumentDefinitions => {
+  const { title, subtitle, data } = values;
+  const { customers: customer, order_details: orderDetails } = data;
+
+  console.log({ title, subtitle, data });
+
+  const TAX_RATE = 0.16; // Assuming a tax rate of 16%
+  const subtotal = orderDetails.reduce(
+    (acc, actual) => acc + +actual.products.price * actual.quantity,
+    0,
+  );
+  const total = subtotal + subtotal * TAX_RATE;
+
   return {
     styles: styles,
     pageMargins: [40, 60],
@@ -46,8 +100,8 @@ export const orderByIdContent = (): TDocumentDefinitions => {
           },
           {
             text: [
-              { text: 'Recibo No#: 123123\n', bold: true },
-              `Fecha del recibo: ${DateFormatter.getDDMMMMYYYY(new Date())}\nPagar antes de ${DateFormatter.getDDMMMMYYYY(new Date())}\n`,
+              { text: `Recibo No#: ${data.order_id}\n`, bold: true },
+              `Fecha del recibo: ${DateFormatter.getDDMMMMYYYY(data.order_date)}\nPagar antes de ${DateFormatter.getDDMMMMYYYY(new Date())}\n`,
             ],
             alignment: 'right',
           },
@@ -72,7 +126,7 @@ export const orderByIdContent = (): TDocumentDefinitions => {
       // CUSTOMER ADDRESS
       { text: 'Cobrar a:\n', style: 'subHeader' },
       {
-        text: 'Razón Social: Richter Supermarket\nMichael Holz\nGrenzacherweg 237\n',
+        text: `Razón Social: ${customer.customer_name}\nContacto: ${customer.contact_name}\nDirección: ${customer.address}\n`,
       },
 
       // DETAILS ORDER TABLE
@@ -84,19 +138,34 @@ export const orderByIdContent = (): TDocumentDefinitions => {
           widths: ['auto', '*', 'auto', 'auto', 'auto'],
           body: [
             ['ID', 'Descripción', 'Cantidad', 'Precio', 'Total'],
-            [
-              '1',
-              'some description',
-              '2',
+            // [
+            //   '1',
+            //   'some description',
+            //   '2',
+            //   {
+            //     text: CurrencyFormatter.formatCurrency(4000),
+            //     alignment: 'right',
+            //   },
+            //   {
+            //     text: CurrencyFormatter.formatCurrency(8000),
+            //     alignment: 'right',
+            //   },
+            // ],
+            ...orderDetails.map((detail) => [
+              detail.order_detail_id,
+              detail.products.product_name,
+              detail.quantity,
               {
-                text: CurrencyFormatter.formatCurrency(4000),
+                text: CurrencyFormatter.formatCurrency(+detail.products.price),
                 alignment: 'right',
               },
               {
-                text: CurrencyFormatter.formatCurrency(8000),
+                text: CurrencyFormatter.formatCurrency(
+                  +detail.products.price * detail.quantity,
+                ),
                 alignment: 'right',
               },
-            ],
+            ]),
           ],
         },
       },
@@ -119,15 +188,22 @@ export const orderByIdContent = (): TDocumentDefinitions => {
                 [
                   'Subtotal: ',
                   {
-                    text: CurrencyFormatter.formatCurrency(1500),
+                    text: CurrencyFormatter.formatCurrency(subtotal),
                     bold: true,
+                    alignment: 'right',
+                  },
+                ],
+                [
+                  'Imp. (16%): ',
+                  {
+                    text: CurrencyFormatter.formatCurrency(subtotal * TAX_RATE),
                     alignment: 'right',
                   },
                 ],
                 [
                   { text: 'Total: ', bold: true },
                   {
-                    text: CurrencyFormatter.formatCurrency(5000),
+                    text: CurrencyFormatter.formatCurrency(total),
                     bold: true,
                     alignment: 'right',
                   },

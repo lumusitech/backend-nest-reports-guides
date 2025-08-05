@@ -1,8 +1,11 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { PrinterService } from 'src/printer/printer.service';
-import { orderByIdContent } from 'src/reports/order-by-id.report';
+import {
+  CompleteOrder,
+  orderByIdDocDefinitions,
+} from 'src/reports/order-by-id.report';
 
 @Injectable()
 export class StoreReportsService extends PrismaClient implements OnModuleInit {
@@ -13,10 +16,26 @@ export class StoreReportsService extends PrismaClient implements OnModuleInit {
     await this.$connect();
   }
 
-  getOrderByIdReport(orderId: string) {
-    console.log(orderId);
+  async getOrderByIdReport(orderId: number) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const order = (await this.orders.findUnique({
+      where: { order_id: orderId },
+      include: {
+        customers: true,
+        order_details: {
+          include: {
+            products: true,
+          },
+        },
+      },
+    })) as unknown as CompleteOrder;
 
-    const docDefinitions: TDocumentDefinitions = orderByIdContent();
+    if (!order)
+      throw new NotFoundException(`Order with ID ${orderId} not found`);
+
+    const docDefinitions: TDocumentDefinitions = orderByIdDocDefinitions({
+      data: order,
+    });
     const options: BufferOptions = {};
     const doc = this.printerService.createPDF(docDefinitions, options);
     return doc;

@@ -7,8 +7,8 @@ export class StoreReportsController {
   constructor(private readonly storeReportsService: StoreReportsService) {}
 
   @Get('orders/:orderId')
-  getOrder(@Param('orderId') orderId: string, @Res() response: Response) {
-    const pdfDoc = this.storeReportsService.getOrderByIdReport(orderId);
+  async getOrder(@Param('orderId') orderId: string, @Res() response: Response) {
+    const pdfDoc = await this.storeReportsService.getOrderByIdReport(+orderId);
     response.setHeader('Content-Type', 'application/pdf');
     pdfDoc.info.Title = `Store - Order by ID - ${orderId}`;
     pdfDoc.pipe(response);
