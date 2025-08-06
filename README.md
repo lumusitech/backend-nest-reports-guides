@@ -112,6 +112,22 @@ Specifically, we'll cover:
       O.ORDER_ID = 10248;
    ```
 
+   Using Prisma:
+
+   ```typescript
+   const order = await this.orders.findUnique({
+     where: { order_id: orderId },
+     include: {
+       customers: true,
+       order_details: {
+         include: {
+           products: true,
+         },
+       },
+     },
+   });
+   ```
+
 3. Tables & Styling: Advanced table creation and custom styling.
 
 4. Structure & Alignment: Mastering document structure and precise content alignment.
@@ -140,6 +156,23 @@ Specifically, we'll cover:
        COUNT(*) DESC
      LIMIT
        10;
+   ```
+
+   Using Prisma:
+
+   ```typescript
+   const topCountries = await this.customers.groupBy({
+     by: ['country'],
+     _count: {
+       _all: true,
+     },
+     orderBy: {
+       _count: {
+         country: 'desc',
+       },
+     },
+     take: 10,
+   });
    ```
 
 3. Chart Types:
