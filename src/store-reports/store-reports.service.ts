@@ -2,7 +2,11 @@ import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { PrinterService } from 'src/printer/printer.service';
-import { getBasicChartSvg, getStatisticsChartSvg } from 'src/reports';
+import {
+  getBasicChartSvg,
+  getStatisticsChartSvg,
+  TopCountry,
+} from 'src/reports';
 import {
   CompleteOrder,
   orderByIdDocDefinitions,
@@ -66,7 +70,14 @@ export class StoreReportsService extends PrismaClient implements OnModuleInit {
       topCountries,
     );
 
-    const docDefinitions: TDocumentDefinitions = await getStatisticsChartSvg();
+    const formattedTopCountries = topCountries.map(({ country, _count }) => ({
+      country,
+      customersCount: _count._all,
+    })) as unknown as TopCountry[];
+
+    const docDefinitions: TDocumentDefinitions = await getStatisticsChartSvg({
+      topCountries: formattedTopCountries,
+    });
     const options: BufferOptions = {};
     const doc = this.printerService.createPDF(docDefinitions, options);
     return doc;
