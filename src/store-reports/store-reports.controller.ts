@@ -14,4 +14,13 @@ export class StoreReportsController {
     pdfDoc.pipe(response);
     pdfDoc.end();
   }
+
+  @Get('svg-charts')
+  async getSVGChart(@Res() response: Response) {
+    const svgDoc = await this.storeReportsService.getSVGChartReport();
+    response.setHeader('Content-Type', 'Application/pdf');
+    svgDoc.info.Title = 'SVG Charts';
+    svgDoc.pipe(response);
+    svgDoc.end();
+  }
 }

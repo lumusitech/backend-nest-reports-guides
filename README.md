@@ -71,7 +71,46 @@ Specifically, we'll cover:
 
 1. QR Codes: Implementing and integrating QR codes.
 
-2. Inner Joins: Handling data relationships using inner joins.
+2. Inner Joins: Handling data relationships using inner joins. The query below retrieves all the data needed for a specific order using native SQL. However, we will achieve the same result using Prisma.
+
+   ```sql
+    SELECT
+      *
+    FROM
+      ORDERS
+      INNER JOIN ORDER_DETAILS ON ORDERS.ORDER_ID = ORDER_DETAILS.ORDER_ID
+      INNER JOIN PRODUCTS ON ORDER_DETAILS.PRODUCT_ID = PRODUCTS.PRODUCT_ID
+      INNER JOIN CATEGORIES ON PRODUCTS.CATEGORY_ID = CATEGORIES.CATEGORY_ID
+      INNER JOIN CUSTOMERS ON ORDERS.CUSTOMER_ID = CUSTOMERS.CUSTOMER_ID
+    WHERE
+      ORDERS.ORDER_ID = 10248;
+   ```
+
+   OR:
+
+   ```sql
+    SELECT
+      O.ORDER_ID,
+      O.ORDER_DATE,
+      C.CUSTOMER_ID,
+      C.CUSTOMER_NAME,
+      C.CONTACT_NAME,
+      OD.PRODUCT_ID,
+      P.PRODUCT_NAME,
+      P.PRICE,
+      OD.QUANTITY,
+      (P.PRICE * OD.QUANTITY) AS TOTAL_ITEM,
+      CAT.CATEGORY_ID,
+      CAT.CATEGORY_NAME
+    FROM
+      ORDERS O
+      INNER JOIN CUSTOMERS C ON O.CUSTOMER_ID = C.CUSTOMER_ID
+      INNER JOIN ORDER_DETAILS OD ON O.ORDER_ID = OD.ORDER_ID
+      INNER JOIN PRODUCTS P ON OD.PRODUCT_ID = P.PRODUCT_ID
+      INNER JOIN CATEGORIES CAT ON P.CATEGORY_ID = CAT.CATEGORY_ID
+    WHERE
+      O.ORDER_ID = 10248;
+   ```
 
 3. Tables & Styling: Advanced table creation and custom styling.
 
@@ -87,7 +126,21 @@ Specifically, we'll cover:
 
 1. Chart.js: Generating charts using this library.
 
-2. Prisma Count Queries: Efficiently fetching data for our charts with count queries.
+2. Prisma Count Queries: Efficiently fetching data for our charts with count queries. The query below retrieves all the data needed using native SQL. However, we will achieve the same result using Prisma.
+
+   ```sql
+     SELECT
+       COUNT(*),
+       COUNTRY
+     FROM
+       CUSTOMERS
+     GROUP BY
+       COUNTRY
+     ORDER BY
+       COUNT(*) DESC
+     LIMIT
+       10;
+   ```
 
 3. Chart Types:
    1. Doughnut charts
