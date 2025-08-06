@@ -23,4 +23,13 @@ export class StoreReportsController {
     svgDoc.pipe(response);
     svgDoc.end();
   }
+
+  @Get('statistics')
+  async statistics(@Res() response: Response) {
+    const svgDoc = await this.storeReportsService.getSVGStatisticsChartReport();
+    response.setHeader('Content-Type', 'Application/pdf');
+    svgDoc.info.Title = 'SVG Charts - Statistics';
+    svgDoc.pipe(response);
+    svgDoc.end();
+  }
 }

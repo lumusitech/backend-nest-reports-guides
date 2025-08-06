@@ -51,28 +51,29 @@ const generateDonut = () => {
   return Utils.chartJsToImage(config);
 };
 
-export const getBasicChartSvg = async (): Promise<TDocumentDefinitions> => {
-  const [chart, chartDonut] = await Promise.all([
-    generateChartImage(),
-    generateDonut(),
-  ]);
+export const getStatisticsChartSvg =
+  async (): Promise<TDocumentDefinitions> => {
+    const [chart, chartDonut] = await Promise.all([
+      generateChartImage(),
+      generateDonut(),
+    ]);
 
-  return {
-    content: [
-      {
-        svg: svgContent,
-        width: 100,
-        fit: [100, 100], // Fit to 100x100
-        alignment: 'center',
-      },
-      {
-        image: chart,
-        width: 500,
-      },
-      {
-        image: chartDonut,
-        width: 500,
-      },
-    ],
+    return {
+      content: [
+        {
+          svg: svgContent,
+          width: 100,
+          fit: [100, 100], // Fit to 100x100
+          alignment: 'center',
+        },
+        {
+          image: chart,
+          width: 500,
+        },
+        {
+          image: chartDonut,
+          width: 500,
+        },
+      ],
+    };
   };
-};

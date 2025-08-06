@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { PrinterService } from 'src/printer/printer.service';
-import { getBasicChartSvgReport } from 'src/reports';
+import { getBasicChartSvg, getStatisticsChartSvg } from 'src/reports';
 import {
   CompleteOrder,
   orderByIdDocDefinitions,
@@ -42,7 +42,31 @@ export class StoreReportsService extends PrismaClient implements OnModuleInit {
   }
 
   async getSVGChartReport() {
-    const docDefinitions: TDocumentDefinitions = await getBasicChartSvgReport();
+    const docDefinitions: TDocumentDefinitions = await getBasicChartSvg();
+    const options: BufferOptions = {};
+    const doc = this.printerService.createPDF(docDefinitions, options);
+    return doc;
+  }
+
+  async getSVGStatisticsChartReport() {
+    const topCountries = await this.customers.groupBy({
+      by: ['country'],
+      _count: {
+        _all: true,
+      },
+      orderBy: {
+        _count: {
+          country: 'desc',
+        },
+      },
+      take: 10,
+    });
+    console.log(
+      '🚀 ~ StoreReportsService ~ getSVGStatisticsChartReport ~ topCountries 💡',
+      topCountries,
+    );
+
+    const docDefinitions: TDocumentDefinitions = await getStatisticsChartSvg();
     const options: BufferOptions = {};
     const doc = this.printerService.createPDF(docDefinitions, options);
     return doc;
