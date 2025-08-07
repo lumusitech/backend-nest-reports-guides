@@ -196,6 +196,13 @@ In this final section, we'll focus on two main tasks:
 
 This section aims to explore simple methods for creating elaborate and complex content, allowing us to build visually appealing and sophisticated reports.
 
+Dependencies to work:
+
+```sh
+pnpm i html-to-pdfmake
+pnpm i jsdom #html-to-pdfmake use window, so we can do this within server with jsdom
+```
+
 ---
 
 ## PDF make config
