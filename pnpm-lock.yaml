@@ -29,6 +29,9 @@ importers:
       axios:
         specifier: ^1.11.0
         version: 1.11.0
+      html-to-pdfmake:
+        specifier: ^2.5.30
+        version: 2.5.30
       pdfmake:
         specifier: ^0.2.20
         version: 0.2.20
@@ -2245,6 +2248,9 @@ packages:
 
   html-escaper@2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
+
+  html-to-pdfmake@2.5.30:
+    resolution: {integrity: sha512-h7SXvVt3lyPXpMp8wfUbs54rfgYUBlfdhDUn9IS0DtBYAxlTHMNRLC29p3weENw6DD84uXT8s6jBGMbadVl79A==}
 
   http-cache-semantics@4.2.0:
     resolution: {integrity: sha512-dTxcvPXqPvXBQpq5dUr6mEMJX4oIEFv6bwom3FDwKRDsuIjjJGANqhBuoAn9c1RQJIdAKav33ED65E2ys+87QQ==}
@@ -6159,6 +6165,8 @@ snapshots:
       lru-cache: 10.4.3
 
   html-escaper@2.0.2: {}
+
+  html-to-pdfmake@2.5.30: {}
 
   http-cache-semantics@4.2.0: {}
 
