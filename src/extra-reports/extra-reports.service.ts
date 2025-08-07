@@ -3,7 +3,7 @@ import fs from 'fs';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { getHtmlContent } from 'src/helpers';
 import { PrinterService } from 'src/printer/printer.service';
-import { headerSection } from 'src/reports';
+import { footerSection, headerSection } from 'src/reports';
 
 @Injectable()
 export class ExtraReportsService {
@@ -11,10 +11,9 @@ export class ExtraReportsService {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   async generateHtmlReport() {
-    const html = fs.readFileSync('src/reports/html/basic-01.html', 'utf-8');
+    const html = fs.readFileSync('src/reports/html/basic-03.html', 'utf-8');
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const content = getHtmlContent(html);
+    const content = getHtmlContent(html, { client: 'Luciano Figueroa' });
 
     const docDefinitions: TDocumentDefinitions = {
       pageMargins: [40, 110, 40, 60],
@@ -22,8 +21,7 @@ export class ExtraReportsService {
         title: 'HTML to pdf Report',
         subtitle: 'Generated from HTML',
       }),
-      footer: headerSection({}),
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      footer: footerSection,
       content,
     };
     const options: BufferOptions = {};
