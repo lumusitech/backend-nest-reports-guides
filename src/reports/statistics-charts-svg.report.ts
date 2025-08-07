@@ -26,8 +26,38 @@ export const getStatisticsChartSvg = async (
   return {
     content: [
       {
-        image: donutChart,
-        width: 500,
+        columns: [
+          {
+            width: '65%',
+            stack: [
+              {
+                text: 'Top 10 países con más clientes',
+                alignment: 'center',
+                margin: [0, 0, 0, 10],
+              },
+              {
+                image: donutChart,
+                width: 320,
+              },
+            ],
+          },
+
+          {
+            layout: 'lightHorizontalLines',
+            width: '35%',
+            table: {
+              headerRows: 1,
+              widths: ['60%', '30%'],
+              body: [
+                ['País', 'Clientes'],
+                ...options.topCountries.map((c) => [
+                  c.country,
+                  c.customersCount,
+                ]),
+              ],
+            },
+          },
+        ],
       },
     ],
   };

@@ -18,7 +18,7 @@ export const getDonutChart = (options: DonutOptions): Promise<string> => {
       {
         label: 'Donut Dataset',
         data: options.entries.map((entry) => entry.value),
-        // backgroundColor: Object.values(Utils.CHART_COLORS),
+        backgroundColor: Object.values(Utils.CHART_COLORS),
       },
     ],
   };

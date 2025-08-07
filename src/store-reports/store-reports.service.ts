@@ -65,10 +65,6 @@ export class StoreReportsService extends PrismaClient implements OnModuleInit {
       },
       take: 10,
     });
-    console.log(
-      '🚀 ~ StoreReportsService ~ getSVGStatisticsChartReport ~ topCountries 💡',
-      topCountries,
-    );
 
     const formattedTopCountries = topCountries.map(({ country, _count }) => ({
       country,
