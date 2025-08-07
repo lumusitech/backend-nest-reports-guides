@@ -188,6 +188,16 @@ Specifically, we'll cover:
 
 ---
 
+In this final section, we'll focus on two main tasks:
+
+1. Converting HTML content to PdfMake.
+
+2. Developing complex table designs.
+
+This section aims to explore simple methods for creating elaborate and complex content, allowing us to build visually appealing and sophisticated reports.
+
+---
+
 ## PDF make config
 
 Add esModuleInterop in true within tsconfig.json
