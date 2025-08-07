@@ -1,7 +1,10 @@
 import type { TDocumentDefinitions } from 'pdfmake/interfaces';
 
+import { getStackedBarsLineChart } from './charts';
+import { getBarsChart } from './charts/bars.chart';
 import { getDonutChart } from './charts/donut.chart';
-import { headerSection } from './sections';
+import { getLineChart } from './charts/line.chart';
+import { footerSection, headerSection } from './sections';
 
 export interface TopCountry {
   country: string;
@@ -17,13 +20,20 @@ export interface ReportOptions {
 export const getStatisticsChartSvg = async (
   options: ReportOptions,
 ): Promise<TDocumentDefinitions> => {
-  const donutChart = await getDonutChart({
-    entries: options.topCountries.map((country) => ({
-      label: country.country,
-      value: country.customersCount,
-    })),
-    position: 'left',
-  });
+  const [donutChart, lineChart, barsChart, stackedBarsLineChart] =
+    await Promise.all([
+      getDonutChart({
+        entries: options.topCountries.map((country) => ({
+          label: country.country,
+          value: country.customersCount,
+        })),
+        position: 'left',
+      }),
+      getLineChart(),
+      getBarsChart(),
+      getStackedBarsLineChart(),
+    ]);
+
   return {
     pageMargins: [40, 100, 40, 60],
     header: headerSection({
@@ -67,6 +77,34 @@ export const getStatisticsChartSvg = async (
           },
         ],
       },
+
+      {
+        image: lineChart,
+        width: 500,
+        alignment: 'center',
+        margin: [0, 40, 0, 0],
+      },
+
+      {
+        columnGap: 10,
+        columns: [
+          {
+            image: barsChart,
+            width: 250,
+            height: 180,
+            alignment: 'left',
+            margin: [0, 40, 0, 0],
+          },
+          {
+            image: stackedBarsLineChart,
+            width: 250,
+            height: 180,
+            alignment: 'left',
+            margin: [0, 40, 0, 0],
+          },
+        ],
+      },
     ],
+    footer: footerSection,
   };
 };
