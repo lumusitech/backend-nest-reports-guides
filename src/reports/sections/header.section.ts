@@ -19,7 +19,8 @@ const date: Column = {
   text: DateFormatter.getDDMMMMYYYY(new Date()),
   alignment: 'right',
   margin: [20, 30],
-  width: 160,
+  width: 100,
+  fontSize: 10,
 };
 
 export const headerSection = (options: headerOptions): Content => {
@@ -33,13 +34,13 @@ export const headerSection = (options: headerOptions): Content => {
         text: title ? title : '',
         alignment: 'center',
         margin: [0, 15, 0, 0],
-        style: { fontSize: 22, bold: true },
+        style: { fontSize: 20, bold: true },
       },
       {
         text: subtitle ? subtitle : '',
         alignment: 'center',
         margin: [0, 2, 0, 0],
-        style: { fontSize: 16, bold: true },
+        style: { fontSize: 16 },
       },
     ],
   };

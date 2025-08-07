@@ -1,6 +1,7 @@
 import type { TDocumentDefinitions } from 'pdfmake/interfaces';
 
 import { getDonutChart } from './charts/donut.chart';
+import { headerSection } from './sections';
 
 export interface TopCountry {
   country: string;
@@ -24,6 +25,13 @@ export const getStatisticsChartSvg = async (
     position: 'left',
   });
   return {
+    pageMargins: [40, 100, 40, 60],
+    header: headerSection({
+      title: options.title ?? 'Estadísticas de Clientes',
+      subtitle: options.subtitle ?? 'Informe de clientes por país',
+      showLogo: true,
+      showDate: true,
+    }),
     content: [
       {
         columns: [
