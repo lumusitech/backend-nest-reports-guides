@@ -3,7 +3,7 @@ import fs from 'fs';
 import type { BufferOptions, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { getHtmlContent } from 'src/helpers';
 import { PrinterService } from 'src/printer/printer.service';
-import { footerSection, headerSection } from 'src/reports';
+import { footerSection, getCommunityReport, headerSection } from 'src/reports';
 
 @Injectable()
 export class ExtraReportsService {
@@ -26,6 +26,12 @@ export class ExtraReportsService {
     };
     const options: BufferOptions = {};
     const doc = this.printerService.createPDF(docDefinitions, options);
+    return doc;
+  }
+
+  generateCommunityReport() {
+    const docDefinitions = getCommunityReport();
+    const doc = this.printerService.createPDF(docDefinitions);
     return doc;
   }
 }

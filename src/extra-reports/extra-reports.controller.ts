@@ -14,4 +14,13 @@ export class ExtraReportsController {
     pdfDoc.pipe(response);
     pdfDoc.end();
   }
+
+  @Get('community-report')
+  getCommunityReport(@Res() response: Response) {
+    const pdfDoc = this.extraReportsService.generateCommunityReport();
+    response.setHeader('Content-Type', 'application/pdf');
+    pdfDoc.info.Title = 'Billing Report';
+    pdfDoc.pipe(response);
+    pdfDoc.end();
+  }
 }
