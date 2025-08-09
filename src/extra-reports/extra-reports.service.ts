@@ -34,4 +34,30 @@ export class ExtraReportsService {
     const doc = this.printerService.createPDF(docDefinitions);
     return doc;
   }
+
+  generateCustomSizeReport() {
+    const doc = this.printerService.createPDF({
+      //? pageSize allow us to change the page size
+      //? pageSize: 'A4',
+      //? Or we can define exact size for tickets and others
+      pageSize: {
+        width: 200,
+        height: 'auto',
+      },
+      content: [
+        {
+          qr: 'https://devtalles.com',
+          fit: 100,
+          alignment: 'center',
+        },
+        {
+          text: 'Reporte con tamaño personalizado',
+          fontSize: 16,
+          alignment: 'center',
+          margin: [0, 20],
+        },
+      ],
+    });
+    return doc;
+  }
 }

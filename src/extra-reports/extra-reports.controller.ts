@@ -23,4 +23,13 @@ export class ExtraReportsController {
     pdfDoc.pipe(response);
     pdfDoc.end();
   }
+
+  @Get('custom-size')
+  getCustomSize(@Res() response: Response) {
+    const pdfDoc = this.extraReportsService.generateCustomSizeReport();
+    response.setHeader('Content-Type', 'application/pdf');
+    pdfDoc.info.Title = 'Custom Size Report';
+    pdfDoc.pipe(response);
+    pdfDoc.end();
+  }
 }
