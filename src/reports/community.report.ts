@@ -61,6 +61,103 @@ export const getCommunityReport = (): TDocumentDefinitions => {
           },
         ],
       },
+
+      //? Client Details
+      {
+        table: {
+          widths: ['auto', '*', 'auto', '*'],
+          body: [
+            //? Table Header
+            [
+              {
+                text: 'Datos del Cliente',
+                fillColor: '#5775e1',
+                color: 'white',
+                colSpan: 4,
+                // border: [false, false, false, false],
+              },
+              {},
+              {},
+              {},
+            ],
+            [
+              {
+                text: 'Razón Social',
+                fillColor: '#343a40',
+                color: 'white',
+                bold: true,
+                // border: [false, false, false, false],
+              },
+              {
+                text: 'Nombre de la Empresa',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: 'Dirección',
+                fillColor: '#343a40',
+                color: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: 'Fake Street 123',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+            ],
+            [
+              {
+                text: 'RUT',
+                fillColor: '#343a40',
+                color: 'white',
+                bold: true,
+                // border: [false, false, false, false],
+              },
+              {
+                text: '',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: 'Teléfono',
+                fillColor: '#343a40',
+                color: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: '',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+            ],
+            [
+              {
+                text: 'Giro',
+                fillColor: '#343a40',
+                color: 'white',
+                bold: true,
+                // border: [false, false, false, false],
+              },
+              {
+                text: '',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: 'Condición de pago',
+                fillColor: '#343a40',
+                color: 'white',
+                // border: [false, false, false, false],
+              },
+              {
+                text: '',
+                fillColor: 'white',
+                // border: [false, false, false, false],
+              },
+            ],
+          ],
+        },
+      },
     ],
   };
 
