@@ -3,7 +3,7 @@ services:
     container_name: postgres_database
     image: postgres:16.3
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=123456
     restart: always
@@ -15,10 +15,14 @@ services:
       - db
     image: dpage/pgadmin4:8.6
     volumes:
-      - ./pgadmin:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
     ports:
       - '8080:80'
     environment:
       - PGADMIN_DEFAULT_PASSWORD=123456
       - PGADMIN_DEFAULT_EMAIL=superman@google.com
     restart: always
+
+volumes: # Definir los volúmenes nombrados
+  postgres_data:
+  pgadmin_data:
