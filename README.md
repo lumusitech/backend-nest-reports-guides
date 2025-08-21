@@ -218,3 +218,40 @@ The `esModuleInterop: true` setting in `tsconfig.json` is a convenience configur
   }
 }
 ```
+
+---
+
+## Solución: Ajustar los Permisos del Volumen de PostgreSQL para GNU Linux
+
+1. Detén tu docker compose:
+
+   ```sh
+   docker compose down
+   ```
+
+2. Borra el directorio postgres existente (si lo hay):
+   Este es un paso crucial para eliminar cualquier dato corrupto o permisos incorrectos de intentos anteriores. Ten en cuenta que esto eliminará todos los datos de tu base de datos. Si son importantes, deberías haber hecho una copia de seguridad antes.
+
+   ```sh
+   rm -rf ./postgres
+   ```
+
+3. Asegúrate de ejecutar este comando en el mismo directorio donde se encuentra tu archivo docker-compose.yml.
+   Crea el directorio postgres con los permisos adecuados:
+   Esto le dará a tu usuario y a Docker los permisos necesarios para escribir en el directorio.
+
+   ```sh
+   mkdir ./postgres
+   sudo chown -R 1000:1000 ./postgres
+   sudo chmod -R 777 ./postgres
+   ```
+
+   - mkdir ./postgres: Crea la carpeta si no existe.
+   - sudo chown -R 1000:1000 ./postgres: Este es el paso clave. En lugar de usar tu usuario ($USER), estamos cambiando la propiedad al uid:gid (ID de usuario y grupo) que el usuario postgres espera dentro del contenedor. El uid y gid predeterminados para el usuario postgres en la imagen postgres:16.3 suelen ser 999 o 1000, dependiendo de la versión de la imagen y del sistema base. Usar 1000 es una apuesta segura en muchas instalaciones.
+   - sudo chmod -R 777 ./postgres: Esto garantiza permisos de lectura, escritura y ejecución para todos. Es útil para depurar.
+
+4. Inicia tus contenedores de Docker de nuevo:
+
+   ```sh
+   docker compose up -d
+   ```
